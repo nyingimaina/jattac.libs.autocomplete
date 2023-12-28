@@ -1,0 +1,71 @@
+/* AutoComplete.module.css */
+.container {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px; /* Rounded borders */
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border-top: none;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  background-color: rgba(250, 250, 250, 0.8); /* Frosted glass effect */
+  backdrop-filter: blur(20px); /* Frosted glass effect */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0 0 8px 8px; /* Rounded bottom corners */
+  z-index: 1003;
+  opacity: 0.9;
+}
+
+.dropdown li {
+  padding: 8px;
+  cursor: pointer;
+  transition: background-color 0.1s;
+  margin-left: 5px;
+  margin-right: 5px;
+  border-radius: 5px;
+}
+
+.dropdown li:hover {
+  background-color: rgb(162, 162, 231);
+  color: #141414;
+}
+
+.dropdownAbove {
+  top: auto;
+  bottom: 100%;
+  border-radius: 8px 8px 0 0;
+}
+
+.selected {
+  background-color: #00f;
+  color: #fff;
+}
+
+.inputContainer {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  right: 10px; /* Adjust the right positioning as needed */
+  transform: translateY(-50%);
+  color: #555; /* Adjust the color as needed */
+  cursor: pointer;
+  font-weight: 900;
+  font-size: 17px;
+}
