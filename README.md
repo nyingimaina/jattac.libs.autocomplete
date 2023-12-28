@@ -51,6 +51,8 @@ export default MyComponent;
 - **uniqueId:** Optional. Unique identifier for the autocomplete component.
 - **onDropdownOpen:** Optional. Callback function triggered when the dropdown opens.
 - **onDropdownClose:** Optional. Callback function triggered when the dropdown closes.
+- **placeholder:** Optional. Prompt to display if user has not entered any text in the component
+- **newItemPrompt:** Optional. Prompt to display when an item that doesn't exist in the list is entered.
 
 ## License
 

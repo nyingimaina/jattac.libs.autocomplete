@@ -17,6 +17,7 @@ interface AutoCompleteProps<TOption extends object> {
   onDropdownOpen?: () => void;
   onDropdownClose?: () => void;
   placeholder?: string;
+  newItemPrompt?: string;
 }
 
 interface AutoCompleteState<TOption extends object> {
@@ -103,10 +104,11 @@ class AutoComplete<TOption extends object> extends React.Component<
     optionWrapper: IAutoCompleteOptionWrapper<TOption>,
     metadata?: { label?: string; isNew?: boolean },
   ) => {
+    const newItemPrompt = this.props.newItemPrompt ?? 'Create';
     const label =
       !optionWrapper || !optionWrapper.option ? '' : metadata?.label ?? this.props.labelResolver(optionWrapper.option);
     optionWrapper.actualLabel = label;
-    optionWrapper.displayedLabel = metadata?.isNew === true ? `Create "${label}"` : label;
+    optionWrapper.displayedLabel = metadata?.isNew === true ? `${newItemPrompt} "${label}"` : label;
     optionWrapper.isNew = metadata?.isNew === true ? true : false;
   };
 
