@@ -3,7 +3,7 @@ import React, { ChangeEvent, KeyboardEvent } from 'react';
 import styles from '../Styles/AutoComplete.module.css';
 import { MdClose } from 'react-icons/md';
 import IAutoCompleteOptionWrapper from '../Data/IAutoCompleteOptionWrapper';
-import SimpleDebouncer from '../SimpleDebouncer';
+import SimpleThrottler from '../SimpleThrottler';
 
 interface AutoCompleteProps<TOption extends object> {
   options: TOption[];
@@ -19,7 +19,7 @@ interface AutoCompleteProps<TOption extends object> {
   onDropdownClose?: () => void;
   placeholder?: string;
   newItemPrompt?: string;
-  debounceDelay?: number;
+  throttleDelay?: number;
 }
 
 interface AutoCompleteState<TOption extends object> {
@@ -36,7 +36,7 @@ class AutoComplete<TOption extends object> extends React.Component<
 > {
   private inputRef: HTMLInputElement | null = null;
   private dropdownRef: HTMLUListElement | null = null;
-  private simpleDebouncer = new SimpleDebouncer(this.props.debounceDelay ?? 500);
+  private simpleThrottler = new SimpleThrottler(this.props.throttleDelay ?? 1000);
 
   constructor(props: AutoCompleteProps<TOption>) {
     super(props);
@@ -139,7 +139,7 @@ class AutoComplete<TOption extends object> extends React.Component<
   };
 
   handleDebouncedSearchAsync = async (inputValue: string) => {
-    await this.simpleDebouncer.debounceAsync(async () => {
+    await this.simpleThrottler.throttle(async () => {
       if (!this.props.onSearch) return;
       if (inputValue.length < (this.props.minSearchChars ?? 3)) return;
       await this.props.onSearch(inputValue);
