@@ -36,7 +36,7 @@ class AutoComplete<TOption extends object> extends React.Component<
 > {
   private inputRef: HTMLInputElement | null = null;
   private dropdownRef: HTMLUListElement | null = null;
-  private simpleThrottler = new SimpleThrottler(this.props.throttleDelay ?? 1000);
+  private simpleThrottler = new SimpleThrottler(this.props.throttleDelay ?? 750);
 
   constructor(props: AutoCompleteProps<TOption>) {
     super(props);
@@ -56,6 +56,10 @@ class AutoComplete<TOption extends object> extends React.Component<
       this.handleSelect({
         option: this.props.selectedOption as TOption,
       } as IAutoCompleteOptionWrapper<TOption>);
+    }
+
+    if (prevProps.options !== this.props.options && this.state.inputValue) {
+      this.filterOptions(this.state.inputValue);
     }
   }
 
