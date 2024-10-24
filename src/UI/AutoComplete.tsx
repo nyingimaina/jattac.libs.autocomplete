@@ -4,6 +4,7 @@ import styles from '../Styles/AutoComplete.module.css';
 import { MdClose } from 'react-icons/md';
 import IAutoCompleteOptionWrapper from '../Data/IAutoCompleteOptionWrapper';
 import SimpleThrottler from '../SimpleThrottler';
+import ReactDOM from 'react-dom';
 
 interface AutoCompleteProps<TOption extends object> {
   options: TOption[];
@@ -275,7 +276,22 @@ class AutoComplete<TOption extends object> extends React.Component<
 
   render() {
     const { inputValue, filteredOptions, selectedIndex, showDropdownAbove } = this.state;
-
+    const dropdown = (
+      <ul
+        className={`${styles.dropdown} ${showDropdownAbove ? styles.dropdownAbove : ''}`}
+        ref={(ref) => (this.dropdownRef = ref)}
+      >
+        {filteredOptions.map((option, index) => (
+          <li
+            key={index}
+            onClick={() => this.handleSelect(option)}
+            className={index === selectedIndex ? styles.selected : ''}
+          >
+            {this.getOptionLabel(option)}
+          </li>
+        ))}
+      </ul>
+    );
     return (
       <div className={styles.container}>
         <div className={styles.inputContainer}>
@@ -301,20 +317,7 @@ class AutoComplete<TOption extends object> extends React.Component<
             />
           ) : null}
         </div>
-        <ul
-          className={`${styles.dropdown} ${showDropdownAbove ? styles.dropdownAbove : ''}`}
-          ref={(ref) => (this.dropdownRef = ref)}
-        >
-          {filteredOptions.map((option, index) => (
-            <li
-              key={index}
-              onClick={() => this.handleSelect(option)}
-              className={index === selectedIndex ? styles.selected : ''}
-            >
-              {this.getOptionLabel(option)}
-            </li>
-          ))}
-        </ul>
+        {ReactDOM.createPortal(dropdown, document.body)}
       </div>
     );
   }

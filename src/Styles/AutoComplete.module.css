@@ -24,7 +24,7 @@
   backdrop-filter: blur(20px); /* Frosted glass effect */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 0 0 8px 8px; /* Rounded bottom corners */
-  z-index: 1003;
+  z-index: 100003;
   opacity: 0.9;
 }
 
