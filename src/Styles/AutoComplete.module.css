@@ -26,6 +26,9 @@
   border-radius: 0 0 8px 8px; /* Rounded bottom corners */
   z-index: 100003;
   opacity: 0.9;
+  width: max-content;
+  padding: 5px;
+  box-sizing: border-box;
 }
 
 .dropdown li {
@@ -35,11 +38,27 @@
   margin-left: 5px;
   margin-right: 5px;
   border-radius: 5px;
+  max-width: 600px; /* Adjust as necessary */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .dropdown li:hover {
   background-color: rgb(162, 162, 231);
   color: #141414;
+}
+
+.dropdown li:hover::after {
+  content: attr(data-full-text);
+  position: absolute;
+  white-space: normal;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px;
+  top: -25px; /* Adjust positioning based on dropdown */
+  z-index: 1;
 }
 
 .dropdownAbove {
